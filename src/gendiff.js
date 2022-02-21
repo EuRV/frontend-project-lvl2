@@ -1,8 +1,4 @@
-import { readFileSync } from 'fs';
-import path from 'path';
-import { cwd } from 'process';
-
-const parseFile = (pathToFile) => JSON.parse(readFileSync(path.resolve(cwd(), pathToFile)));
+import parseFile from './parsers.js';
 
 const genDiff = (pathToFile1, pathToFile2) => {
   const data1 = parseFile(pathToFile1);
