@@ -1,24 +1,25 @@
 const getLine = (value, count) => {
-// console.log(value);
   if (typeof value !== 'object' || value === null) {
-    return value;
+    return `${value}`;
   }
   const lines = Object.entries(value)
-    .map(([key, val]) => `${' '.repeat(count)}${key}: ${getLine(val, count)}`);
-  return `{\n${lines.join('\n')}\n${' '.repeat(count)}}`;
+    .map(([key, val]) => `${' '.repeat(count * 2)}  ${key}: ${getLine(val, count + 2)}`);
+  return `{\n${lines.join('\n')}\n${' '.repeat(count * 2 - 2)}}`;
 };
 
 const stringify = {
-  added: (node, depth) => `\n${' '.repeat(depth)}+ ${node.key}: ${getLine(node.value, depth)}`,
-  removed: (node, depth) => `\n${' '.repeat(depth)}- ${node.key}: ${getLine(node.value, depth)}`,
-  unchanged: (node, depth) => `\n${' '.repeat(depth)}  ${node.key}: ${getLine(node.value, depth)}`,
-  changed: (node, depth) => `\n${' '.repeat(depth)}+ ${node.key}: ${getLine(node.previousValue, depth)}\n${' '.repeat(depth)}- ${node.key}: ${getLine(node.nextValue, depth)}`,
-  nested: (node, depth) => `\n${' '.repeat(depth)}  ${node.key}: ${stringify(node.children, depth)}`,
+  added: (node, depth) => `\n${' '.repeat(depth * 2)}+ ${node.key}: ${getLine(node.value, depth + 2)}`,
+  removed: (node, depth) => `\n${' '.repeat(depth * 2)}- ${node.key}: ${getLine(node.value, depth + 2)}`,
+  unchanged: (node, depth) => `\n${' '.repeat(depth * 2)}  ${node.key}: ${getLine(node.value, depth + 2)}`,
+  changed: (node, depth) => `\n${' '.repeat(depth * 2)}- ${node.key}: ${getLine(node.previosValue, depth + 2)}\n${' '.repeat(depth * 2)}+ ${node.key}: ${getLine(node.nextValue, depth + 2)}`,
+  nested: (node, depth, iter) => `\n${' '.repeat(depth * 2)}  ${node.key}: {${iter(node.children, depth + 2, iter).join('')}\n${' '.repeat(depth * 2)}  }`,
 };
 
 const stylish = (diff) => {
-  const iter = (node, depth) => stringify[node.type](node, depth, iter);
-  return iter(diff, 0);
+  const iter = (node, depth) => Object.values(node)
+    .flatMap((val) => stringify[val.type](val, depth, iter));
+  const lines = iter(diff, 1);
+  return `{${lines.join('')}\n}`;
 };
 
 export default stylish;
