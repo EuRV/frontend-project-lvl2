@@ -1,5 +1,5 @@
-import has from 'lodash/has';
-import isObject from 'lodash/isObject';
+import has from 'lodash/has.js';
+import isObject from 'lodash/isObject.js';
 
 const getDifference = (data1, data2) => {
   const data = { ...data1, ...data2 };
