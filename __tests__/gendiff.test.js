@@ -14,8 +14,8 @@ test('check gendiff JSON', () => {
   expect(diff).toEqual(str);
 });
 
-// test('check gendiff YAML', () => {
-//   const diff = genDiff('__fixtures__/file1.yml', '__fixtures__/file2.yml');
-//   const str = readFile('file-reference.txt');
-//   expect(diff).toEqual(str);
-// });
+test('check gendiff YAML', () => {
+  const diff = genDiff('__fixtures__/file1.yml', '__fixtures__/file2.yml');
+  const str = readFile('file-reference.txt');
+  expect(diff).toEqual(str);
+});
