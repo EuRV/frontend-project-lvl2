@@ -9,12 +9,20 @@ const getLine = (value, count) => {
   return `{\n${lines.join('\n')}\n${' '.repeat(count * 2 - 2)}}`;
 };
 
+const prefix = {
+  added: '+',
+  removed: '-',
+  unchanged: ' ',
+};
+
+const lineRender = (key, value, type, count) => `\n${getIndent(count)}${prefix[type]} ${key}: ${getLine(value, count + 2)}`;
+
 const stringify = {
-  added: (node, depth) => `\n${getIndent(depth)}+ ${node.key}: ${getLine(node.value, depth + 2)}`,
-  removed: (node, depth) => `\n${getIndent(depth)}- ${node.key}: ${getLine(node.value, depth + 2)}`,
-  unchanged: (node, depth) => `\n${getIndent(depth)}  ${node.key}: ${getLine(node.value, depth + 2)}`,
-  changed: (node, depth) => [`\n${getIndent(depth)}- ${node.key}: ${getLine(node.previosValue, depth + 2)}`,
-    `\n${getIndent(depth)}+ ${node.key}: ${getLine(node.nextValue, depth + 2)}`,
+  added: (node, depth) => lineRender(node.key, node.value, 'added', depth),
+  removed: (node, depth) => lineRender(node.key, node.value, 'removed', depth),
+  unchanged: (node, depth) => lineRender(node.key, node.value, 'unchanged', depth),
+  changed: (node, depth) => [lineRender(node.key, node.previosValue, 'removed', depth),
+    lineRender(node.key, node.nextValue, 'added', depth),
   ],
   nested: (node, depth, iter) => `\n${getIndent(depth)}  ${node.key}: {${iter(node.children, depth + 2, iter).join('')}\n${getIndent(depth)}  }`,
 };
