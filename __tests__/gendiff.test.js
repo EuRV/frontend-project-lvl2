@@ -10,12 +10,12 @@ const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8'
 
 test('check gendiff JSON', () => {
   const diff = genDiff('__fixtures__/file1.json', '__fixtures__/file2.json');
-  const str = readFile('file-reference.txt');
+  const str = readFile('current-stylish.txt');
   expect(diff).toEqual(str);
 });
 
 test('check gendiff YAML', () => {
   const diff = genDiff('__fixtures__/file1.yml', '__fixtures__/file2.yml');
-  const str = readFile('file-reference.txt');
+  const str = readFile('current-stylish.txt');
   expect(diff).toEqual(str);
 });
