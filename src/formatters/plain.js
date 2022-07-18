@@ -1,8 +1,8 @@
+import _ from 'lodash';
+
 const getLine1 = (value) => {
-  if (typeof value !== 'object' || value === null) {
-    return value === 'string' ? `'${value}'` : value;
-  }
-  return '[complex value]';
+  if (_.isObject(value)) return '[complex value]';
+  return _.isString(value) ? `'${value}'` : value;
 };
 
 const plain = (diff) => {
