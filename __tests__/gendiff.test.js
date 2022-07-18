@@ -8,14 +8,21 @@ const __dirname = path.dirname(__filename);
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8');
 
-test('check gendiff JSON', () => {
-  const diff = genDiff('__fixtures__/file1.json', '__fixtures__/file2.json');
-  const str = readFile('current-stylish.txt');
-  expect(diff).toEqual(str);
-});
+describe('check gendiff stylish', () => {
+  const expectedStylish = readFile('current-stylish.txt');
+  const expectedPlain = readFile('current-plain.txt');
+  test('check the STYLISH formatter with the JSON extension', () => {
+    const diff = genDiff('__fixtures__/file1.json', '__fixtures__/file2.json', 'stylish');
+    expect(diff).toEqual(expectedStylish);
+  });
 
-test('check gendiff YAML', () => {
-  const diff = genDiff('__fixtures__/file1.yml', '__fixtures__/file2.yml');
-  const str = readFile('current-stylish.txt');
-  expect(diff).toEqual(str);
+  test('check the STYLISH formatter with the YML extension', () => {
+    const diff = genDiff('__fixtures__/file1.yml', '__fixtures__/file2.yml');
+    expect(diff).toEqual(expectedStylish);
+  });
+
+  test('check the PLAIN formatter with the JSON extension', () => {
+    const diff1 = genDiff('__fixtures__/file1.json', '__fixtures__/file2.json', 'plain');
+    expect(diff1).toEqual(expectedPlain);
+  });
 });
