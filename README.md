@@ -22,6 +22,7 @@ $ make install
 ```shell
 $ make test
 ```
+[![make test](https://asciinema.org/a/irpNvTR7JAlhEO3iJ9zbuejoY.svg)](https://asciinema.org/a/irpNvTR7JAlhEO3iJ9zbuejoY)
 
 ## How to use:
 You can use the project as a script in the terminal or as a library in your JavaScript project. You can format the difference in three styles: stylish (default), plain and json.
@@ -36,3 +37,13 @@ Options:
   -f, --format <type>  output format (choices: "stylish", "plain", "json", default: "stylish")
   -h, --help           display help for command
 ```
+[![gendiff -h](https://asciinema.org/a/LwDqVmuliAR6ebT6Sk8nA1gVs.svg)](https://asciinema.org/a/LwDqVmuliAR6ebT6Sk8nA1gVs)
+
+## Project asciinemas:
+### Checking json and yml files with a stylish formatter
+[![stylish](https://asciinema.org/a/TY0ZfDkfgAARqpMd7zk8MTNqT.svg)](https://asciinema.org/a/TY0ZfDkfgAARqpMd7zk8MTNqT)
+### Checking json and yml files with a plain formatter
+[![plain](https://asciinema.org/a/573LyBHEXujnIg4w3pIIHn9EB.svg)](https://asciinema.org/a/573LyBHEXujnIg4w3pIIHn9EB)
+
+### Checking json and yml files with a json formatter
+[![json](https://asciinema.org/a/iIzKsYbdFD9HXbpcbBOFLjCo7.svg)](https://asciinema.org/a/iIzKsYbdFD9HXbpcbBOFLjCo7)
