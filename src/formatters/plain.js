@@ -1,8 +1,9 @@
-import _ from 'lodash';
+import isObject from 'lodash/isObject.js';
+import isString from 'lodash/isString.js';
 
 const getLine1 = (value) => {
-  if (_.isObject(value)) return '[complex value]';
-  return _.isString(value) ? `'${value}'` : value;
+  if (isObject(value)) return '[complex value]';
+  return isString(value) ? `'${value}'` : value;
 };
 
 const plain = (diff) => {
