@@ -1,7 +1,9 @@
+import isObject from 'lodash/isObject.js';
+
 const getIndent = (depth, replacer = ' ') => replacer.repeat(depth * 2);
 
 const getLine = (value, count) => {
-  if (typeof value !== 'object' || value === null) {
+  if (!isObject(value)) {
     return `${value}`;
   }
   const lines = Object.entries(value)
@@ -28,8 +30,7 @@ const stringify = {
 };
 
 const stylish = (diff) => {
-  const iter = (node, depth) => Object.values(node)
-    .flatMap((val) => stringify[val.type](val, depth, iter));
+  const iter = (data, depth) => data.flatMap((node) => stringify[node.type](node, depth, iter));
   const lines = iter(diff, 1);
   return `{${lines.join('')}\n}`;
 };
