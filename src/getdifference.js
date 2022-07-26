@@ -18,7 +18,7 @@ const getDifference = (data1, data2) => {
     if (isObject(data1[key]) && isObject(data2[key])) {
       return { key, type: 'nested', children: getDifference(data1[key], data2[key]) };
     }
-    if ((has(data1, key) && has(data2, key)) && data1[key] !== data2[key]) {
+    if (data1[key] !== data2[key]) {
       return {
         key, type: 'changed', previosValue: data1[key], nextValue: data2[key],
       };
